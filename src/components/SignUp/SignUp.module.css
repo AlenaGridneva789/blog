@@ -86,7 +86,9 @@
   width: 100%;
   border: 1px solid #e8e8e8;
 }
-
+.checkbox {
+  margin-right: 10px;
+}
 .checkbox span {
   font-size: 14px;
   color: #595959;
@@ -105,7 +107,9 @@
 .button:active {
   background-color: #1e578d;
 }
-
+.button:disabled {
+  opacity: 0.5;
+}
 .footer {
   text-align: center;
   font-size: 12px;
@@ -132,4 +136,9 @@
 .spin {
   display: flex;
   align-items: center;
+}
+.label{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }

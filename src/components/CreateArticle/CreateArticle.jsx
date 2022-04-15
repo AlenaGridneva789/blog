@@ -23,12 +23,13 @@ const CreateArticle = () => {
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   const { slug, edit } = useParams();
 
   const {
     handleSubmit,
     control,
-    // reset,
+    reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm({
     mode: 'onChange',
@@ -41,13 +42,14 @@ const CreateArticle = () => {
             },
           ]
         : fullArticle.tagList?.map((tag) => ({ name: tag })),
-      title: edit ? fullArticle.title : '',
+      title: edit ? fullArticle.title : " ",
       description: edit ? fullArticle.description : '',
-      text: edit ? fullArticle.body : '',
+      text: edit ?  fullArticle.body : " ",
     },
   });
 
   useEffect(() => {
+    
     if (!isAuth) {
       navigate('/sign-in');
     }
@@ -58,37 +60,45 @@ const CreateArticle = () => {
     if (slug !== fullArticle.slug && edit) {
       navigate('/articles');
     }
+    
   }, [isAuth, error, isSubmitSuccessful]);
+  
 
   const onSubmit = (data) => {
     dispatch(createArticle(data.title, data.description, data.text, data.tagList, token, edit, fullArticle.slug));
+   
   };
 
   return (
+    
+    
     <div className={classes.wrapper}>
-      <h5 className={classes.title}>{edit ? 'Edit Article' : 'Create new Article'}</h5>
+      
+      <h5 className={classes.title}>{edit ? 'Edit article' : 'Create new Article'}</h5>
       <div className={classes.spinner}>{!accountLoaded && <Spin size="small" className={classes.spin} />}</div>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+        
         <label htmlFor="title" className={classes['form-item']}>
+          
           <span className={classes['input-title']}>Title</span>
           <Controller
             name="title"
             control={control}
-            render={({ field }) => (
+            render={({field}) => (
               <input
                 id="title"
                 type="text"
                 className={!errors.title ? classes.input : classes['input-error']}
                 placeholder="Title"
-                {...field}
+                {...field} 
                 autoFocus
               />
-            )}
-          />
+            ) }
+          /> 
           <div className={classes['form-error-wrapper']}>
             {errors.title && <span className={classes['form-error']}>{errors.title.message}</span>}
           </div>
-        </label>
+        </label> 
         <label htmlFor="description" className={classes['form-item']}>
           <span className={classes['input-title']}>Short description</span>
           <Controller
@@ -135,6 +145,7 @@ const CreateArticle = () => {
         </button>
       </form>
     </div>
+    
   );
 };
 

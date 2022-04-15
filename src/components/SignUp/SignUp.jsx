@@ -27,6 +27,7 @@ const CreateAccount = () => {
       email: '',
       password: '',
       repeat: '',
+      checkbox: true,
     },
   });
 
@@ -139,18 +140,23 @@ const CreateAccount = () => {
             {errors.repeat && <span className={classes['form-error']}>{errors.repeat.message}</span>}
           </div>
         </label>
-        <span className={classes.divider} />
-        <label htmlFor="checkbox">
+        
+        <label htmlFor="checkbox" className={classes.label}>
           <Controller
             name="checkbox"
             control={control}
             defaultValue
-            render={() => (
-              <Checkbox id="checkbox" className={classes.checkbox} checked>
-                <span>I agree to the processing of my personal information</span>
-              </Checkbox>
+            render={(field) => (
+              <input
+               type="checkbox" 
+               id="checkbox"
+                className={classes.checkbox} 
+                {...field}
+                 required />
             )}
-          />
+            />
+            <div>{errors.checkbox &&<span>{errors.checkbox.message}</span>}</div>
+            I agree to the processing of my personal information
         </label>
         <button type="submit" className={classes.button}>
           Create

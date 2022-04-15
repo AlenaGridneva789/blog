@@ -83,8 +83,15 @@ const ArticleFull = () => {
         ) : null}
       </div>
       <div className={classes.info}>
-        <ReactMarkdown className={classes.text} remarkPlugins={[gfm]}>
+         <ReactMarkdown className={classes.text} remarkPlugins={gfm}>
+      
           {fullArticle.body}
+        </ReactMarkdown>
+        <ReactMarkdown>
+        | First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
         </ReactMarkdown>
       </div>
     </div>

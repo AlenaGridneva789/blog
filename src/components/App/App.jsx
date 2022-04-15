@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { Alert } from 'antd';
 
 import Header from '../Header/Header';
@@ -16,7 +16,7 @@ import classes from './App.module.css';
 
 const App = () => {
   const otherErrors = useSelector(({ otherErrors }) => otherErrors);
-
+ 
   return (
     <>
       <Header />
@@ -30,6 +30,7 @@ const App = () => {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/profile" element={<EditProfile />} />
+          
         </Routes>
       ) : (
         <div className={classes['alert-wrapper']}>

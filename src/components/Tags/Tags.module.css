@@ -68,3 +68,7 @@
   background-color: #0f579b;
   color: white;
 }
+ul, li {
+  list-style: none;
+  padding: 0;
+}

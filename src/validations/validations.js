@@ -27,6 +27,9 @@ export const signUpValidation = yup.object().shape({
     .max(40, 'максимум 40 символов')
     .oneOf([yup.ref('password')], 'пароли должны совпадать')
     .required('обязательно к заполнению'),
+    checkbox: yup
+    .boolean()
+    .oneOf([true],'обязательно'),
 });
 
 export const editableValidation = yup.object().shape({

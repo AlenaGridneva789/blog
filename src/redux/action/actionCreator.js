@@ -1,6 +1,6 @@
-import { toLocalStorage } from '../../components/localStorage';
-import { joinTags } from '../../components/joinTags';
-import { isImage } from '../../components/isImage';
+import { toLocalStorage } from '../../utils/localStorage';
+import { joinTags } from '../../utils/joinTags';
+import { isImage } from '../../utils/isImage';
 import {
   GET_ARTICLES,
   GET_FULL_ARTICLE,

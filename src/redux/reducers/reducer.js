@@ -24,6 +24,7 @@ const initialState = {
   fullArticle: {
     author: {},
     articleLoaded: false,
+    title: '',
   },
   error: null,
   otherErrors: false,
@@ -140,6 +141,7 @@ export const reducer = (state = initialState, action) => {
     case CREATE_ARTICLE:
       return {
         ...state,
+        
         accountLoaded: true,
         error: null,
       };

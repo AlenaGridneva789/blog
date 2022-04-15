@@ -36,7 +36,7 @@ const EditProfile = () => {
       username: isAuth ? JSON.parse(localStorage.getItem('user')).username : '',
       email: isAuth ? JSON.parse(localStorage.getItem('user')).email : '',
       password: '',
-      image: '',
+      image: isAuth ? JSON.parse(localStorage.getItem('user')).image : '',
     },
   });
 
