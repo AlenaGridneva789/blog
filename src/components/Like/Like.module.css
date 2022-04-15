@@ -1,0 +1,27 @@
+.checkbox {
+  position: absolute;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: none;
+}
+.checkbox:checked {
+  width: 18px;
+  height: 18px;
+  margin-left: -22px;
+  background: url('../../img/vectorr.svg') center no-repeat;
+}
+
+.label {
+  padding-left: 22px;
+  display: flex;
+  align-items: center;
+}
+
+.heart {
+  position: absolute;
+  margin-left: -22px;
+  width: 18px;
+  height: 18px;
+  background: url('../../img/Vector.svg') center no-repeat;
+  cursor: pointer;
+}

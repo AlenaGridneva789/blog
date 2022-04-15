@@ -1,0 +1,70 @@
+.input-title {
+  font-size: 14px;
+}
+
+.input {
+  margin-top: 5px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  height: 40px;
+  padding: 8px 12px;
+  font-size: 16px;
+  outline: none;
+}
+.input:focus {
+  border-color: #1890ff;
+}
+
+.delete-button {
+  margin-left: 18px;
+  font-size: 16px;
+  color: red;
+  width: 118px;
+  height: 40px;
+  border: 1px solid #f5222d;
+  border-radius: 4px;
+  transition: color 300ms, background-color 300ms;
+}
+.delete-button:hover {
+  background-color: #f5222d;
+  color: white;
+}
+
+.delete-button:active {
+  transition: none;
+  background-color: #9e161c;
+  color: white;
+}
+
+.delete-button-disabled {
+  margin-left: 18px;
+  font-size: 16px;
+  color: grey;
+  cursor: auto;
+  width: 118px;
+  height: 40px;
+  border: 1px solid #be7e80;
+  background-color: rgb(202, 199, 199);
+  border-radius: 4px;
+}
+
+.add-button {
+  margin-left: 17px;
+  width: 136px;
+  height: 40px;
+  font-size: 16px;
+  border: 1px solid #1890ff;
+  border-radius: 4px;
+  color: #1890ff;
+  transition: color 300ms, background-color 300ms;
+}
+.add-button:hover {
+  background-color: #1890ff;
+  color: white;
+}
+
+.add-button:active {
+  transition: none;
+  background-color: #0f579b;
+  color: white;
+}
