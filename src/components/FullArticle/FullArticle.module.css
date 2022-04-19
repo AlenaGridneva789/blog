@@ -27,7 +27,7 @@
 .text {
   font-family: 'Inter-Regular';
   font-style: normal;
-  font-size: 12px;
+  font-size: 18px;
   color: rgba(0, 0, 0, 0.9);
   margin: 5px 0 0 0;
   line-height: 22px;
@@ -125,3 +125,4 @@ ol {
   flex-wrap: wrap;
   word-break: break-all;
 }
+ 

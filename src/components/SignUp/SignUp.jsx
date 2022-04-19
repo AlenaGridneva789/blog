@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Checkbox, Spin } from 'antd';
+import { Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { signUpValidation } from '../../validations/validations';

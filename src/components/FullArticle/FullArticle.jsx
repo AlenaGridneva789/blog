@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import gfm from 'remark-gfm';
+
 import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 import { Popconfirm, Button, Spin } from 'antd';
 
 import Avatar from '../Avatar/Avatar';
@@ -13,28 +14,37 @@ import { deletePost, getFullArticle } from '../../redux/action/actionCreator';
 
 import classes from './FullArticle.module.css';
 
+
 const ArticleFull = () => {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const pathname = useLocation()
+
+
   const { slug } = useParams();
   const { fullArticle, isAuth, token, isDeleteItem } = useSelector(({ fullArticle, isAuth, token, isDeleteItem }) => ({
     fullArticle,
     isAuth,
     token,
     isDeleteItem,
+    
   }));
-
+  
   useEffect(() => {
-    if (isAuth && !isDeleteItem) {
+    
+    if (isAuth && !isDeleteItem ) {
       dispatch(getFullArticle(slug, token));
+     
     } else if (!isAuth && !isDeleteItem) {
       dispatch(getFullArticle(slug));
     }
     if (isDeleteItem) {
       navigate('/articles');
     }
-  }, [slug, isAuth, isDeleteItem]);
-
+   
+  }, [slug, isAuth, isDeleteItem, pathname]);
+  
   const confirmDelete = () => {
     dispatch(deletePost(slug, token));
   };
@@ -77,21 +87,14 @@ const ArticleFull = () => {
               </Button>
             </Popconfirm>
             <Link to={`/articles/${slug}/edit`}>
-              <Button className={classes['button-edit']}>Edit</Button>
+            <Button className={classes['button-edit']}  >Edit</Button>
             </Link>
           </>
         ) : null}
       </div>
       <div className={classes.info}>
-         <ReactMarkdown className={classes.text} remarkPlugins={gfm}>
-      
+         <ReactMarkdown className={classes.text} remarkPlugins={[gfm]}>
           {fullArticle.body}
-        </ReactMarkdown>
-        <ReactMarkdown>
-        | First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
         </ReactMarkdown>
       </div>
     </div>

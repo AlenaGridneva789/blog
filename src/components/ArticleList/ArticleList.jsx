@@ -28,7 +28,7 @@ const ArticleList = () => {
 
   const result = loaded ? (
     articles.map((element) => (
-      <Article
+      <Article 
         key={uuid()}
         title={element.title}
         author={element.author.username}
@@ -49,7 +49,7 @@ const ArticleList = () => {
 
   return (
     <>
-      <ul>{result}</ul>
+      <ul className={classes.ul}>{result}</ul>
       <div className={classes.pag}>
         {loaded ? (
           <Pagination

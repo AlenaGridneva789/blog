@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spin } from 'antd';
@@ -12,61 +12,68 @@ import { createArticle } from '../../redux/action/actionCreator';
 import classes from './CreateArticle.module.css';
 
 const CreateArticle = () => {
-  const { isAuth, token, error, fullArticle, accountLoaded } = useSelector(
-    ({ isAuth, token, error, fullArticle, accountLoaded }) => ({
+  const { isAuth, token, error, accountLoaded} = useSelector(
+    ({ isAuth, token, error, accountLoaded }) => ({
       isAuth,
       token,
       error,
-      fullArticle,
       accountLoaded,
+      
     })
   );
+ 
   const navigate = useNavigate();
+ 
   const dispatch = useDispatch();
-  
-  const { slug, edit } = useParams();
-
+  const pathname = useLocation()
+  const title = JSON.parse(localStorage.getItem('fullarticle')).title
+  const body = JSON.parse(localStorage.getItem('fullarticle')).body
+  const description = JSON.parse(localStorage.getItem('fullarticle')).description
+  const slug = JSON.parse(localStorage.getItem('fullarticle')).slug
+  const tagList = JSON.parse(localStorage.getItem('fullarticle')).tagList
   const {
     handleSubmit,
     control,
-    reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(editableValidation),
     defaultValues: {
-      tagList: !edit
-        ? [
+      tagList: pathname.pathname==="/new-article" 
+        ? 
+        [
             {
               name: '',
             },
-          ]
-        : fullArticle.tagList?.map((tag) => ({ name: tag })),
-      title: edit ? fullArticle.title : " ",
-      description: edit ? fullArticle.description : '',
-      text: edit ?  fullArticle.body : " ",
+          ] : tagList?.map((tag) => ({ name: tag }))
+      ,
+      title: pathname.pathname ==="/new-article" ?  " " : title,
+      description:pathname.pathname ==="/new-article" ?  " " : description,
+      text:pathname.pathname ==="/new-article" ? " " : body,
     },
-  });
+  }); 
 
-  useEffect(() => {
+   useEffect(() => {
     
     if (!isAuth) {
       navigate('/sign-in');
     }
+    
+    if (pathname.pathname !== "/new-article") {
+      
+      navigate(`/articles/${slug}/edit` )
+    }
+    
     if (isAuth && !error && isSubmitSuccessful) {
       navigate('/articles');
     }
 
-    if (slug !== fullArticle.slug && edit) {
-      navigate('/articles');
-    }
-    
-  }, [isAuth, error, isSubmitSuccessful]);
+  }, [ isAuth, error, isSubmitSuccessful, pathname.pathname ]); 
   
 
   const onSubmit = (data) => {
-    dispatch(createArticle(data.title, data.description, data.text, data.tagList, token, edit, fullArticle.slug));
-   
+    dispatch(createArticle(data.title, data.description, data.text, data.tagList, token, pathname, slug));
+    navigate('/articles')
   };
 
   return (
@@ -74,9 +81,9 @@ const CreateArticle = () => {
     
     <div className={classes.wrapper}>
       
-      <h5 className={classes.title}>{edit ? 'Edit article' : 'Create new Article'}</h5>
+      <h5 className={classes.title}>{pathname.pathname ==="/new-article" ? 'Create new article' : 'Edit Article'}</h5>
       <div className={classes.spinner}>{!accountLoaded && <Spin size="small" className={classes.spin} />}</div>
-      <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+      <form onSubmit={handleSubmit(onSubmit)} className={classes.form} >
         
         <label htmlFor="title" className={classes['form-item']}>
           
@@ -84,14 +91,15 @@ const CreateArticle = () => {
           <Controller
             name="title"
             control={control}
-            render={({field}) => (
+            render={({ field }) => (
               <input
                 id="title"
                 type="text"
-                className={!errors.title ? classes.input : classes['input-error']}
+                className={!errors.title ? classes.input : classes['input-error']} 
                 placeholder="Title"
-                {...field} 
+                {...field}
                 autoFocus
+                
               />
             ) }
           /> 
@@ -149,4 +157,4 @@ const CreateArticle = () => {
   );
 };
 
-export default CreateArticle;
+export default CreateArticle ;

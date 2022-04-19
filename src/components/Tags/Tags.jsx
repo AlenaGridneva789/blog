@@ -44,8 +44,9 @@ Tags.defaultProps = {
   control: {},
 };
 
-Tags.propTypes = {
-  control: PropTypes.objectOf,
-};
+ Tags.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  control: PropTypes.objectOf(PropTypes.any),
+}; 
 
 export default Tags;

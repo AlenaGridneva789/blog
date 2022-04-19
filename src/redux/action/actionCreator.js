@@ -16,6 +16,8 @@ import {
   DELETE_POST,
   PROFILE_EDITED,
   CREATE_ARTICLE,
+  EDIT_ARTICLE,
+ 
 } from './actions';
 
 export const getArticles =
@@ -47,6 +49,7 @@ export const getFullArticle =
       const json = await result.json();
 
       if (result.ok) {
+        localStorage.setItem('fullarticle', JSON.stringify(json.article))
         dispatch({ type: GET_FULL_ARTICLE, payload: { ...json } });
       }
     } catch (error) {
@@ -174,7 +177,6 @@ export const editProfile = (username, email, password, image, token) => async (d
       dispatch({ type: AUTH, payload: json.user });
       dispatch({ type: PROFILE_EDITED, payload: json.user });
     } else if (result.status === 422) {
-      console.log(json.errors);
       dispatch({ type: ERROR, payload: json.errors.body });
     }
   } catch (error) {
@@ -186,11 +188,13 @@ export const editProfile = (username, email, password, image, token) => async (d
   }
 };
 
-export const createArticle = (title, description, body, tagList, token, edit, slug) => async (dispatch) => {
+
+ export const createArticle = (title, description, body, tagList, token, pathname, slug) => async (dispatch) => {
   try {
     dispatch({ type: ACCOUNT_LOADING });
-    const result = await fetch(`https://kata.academy:8021/api/articles/${edit ? slug : ''}`, {
-      method: edit ? 'PUT' : 'POST',
+    
+    const result = await fetch(`https://kata.academy:8021/api/articles/${pathname.pathname==="/new-article" ? " " : slug}`, {
+      method: pathname.pathname==="/new-article" ? 'POST' : 'PUT',
       body: JSON.stringify({
         article: {
           title,
@@ -205,11 +209,15 @@ export const createArticle = (title, description, body, tagList, token, edit, sl
     const json = await result.json();
     if (result.ok) {
       dispatch({ type: CREATE_ARTICLE });
+      dispatch({ type: EDIT_ARTICLE})
+     
     }
     if (result.status === 422) {
       dispatch({ type: ERROR, payload: json.errors });
     }
   } catch (error) {
+    
     dispatch({ type: OTHER_ERRORS });
   }
-};
+}; 
+

@@ -69,6 +69,12 @@
   color: white;
 }
 ul, li {
+  /*list-style: none;*/
+  /*padding: 0;*/
+}
+
+li.tag {
   list-style: none;
   padding: 0;
 }
+

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Routes, Route, Navigate, useParams } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Alert } from 'antd';
 
 import Header from '../Header/Header';
@@ -15,22 +15,24 @@ import 'antd/dist/antd.css';
 import classes from './App.module.css';
 
 const App = () => {
-  const otherErrors = useSelector(({ otherErrors }) => otherErrors);
+  const {otherErrors} = useSelector(({ otherErrors}) =>({
+    otherErrors
+  }) );
  
   return (
     <>
       <Header />
       {!otherErrors ? (
         <Routes>
-          <Route index path="/" element={<ArticleList />} />
+          <Route path="/" element={<ArticleList />} />
           <Route index path="/articles" element={<ArticleList />} />
           <Route path="/articles/:slug" element={<FullArticle />} />
           <Route path="/new-article" element={<CreateArticle />} />
-          <Route path="/articles/:slug/:edit" element={<CreateArticle />} />
+          <Route path="/articles/:slug/edit" element={<CreateArticle />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/profile" element={<EditProfile />} />
-          
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       ) : (
         <div className={classes['alert-wrapper']}>

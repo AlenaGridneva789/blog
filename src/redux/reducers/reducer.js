@@ -1,4 +1,4 @@
-/* eslint-disable default-case */
+
 import {
   GET_ARTICLES,
   GET_FULL_ARTICLE,
@@ -13,6 +13,7 @@ import {
   DELETE_POST,
   PROFILE_EDITED,
   CREATE_ARTICLE,
+  EDIT_ARTICLE,
 } from '../action/actions';
 
 const initialState = {
@@ -24,7 +25,7 @@ const initialState = {
   fullArticle: {
     author: {},
     articleLoaded: false,
-    title: '',
+    
   },
   error: null,
   otherErrors: false,
@@ -34,6 +35,7 @@ const initialState = {
   isAuth: false,
   isDeleteItem: false,
   profileEdited: false,
+  isEdit: false,
 };
 
 if (localStorage.getItem('user')) {
@@ -141,10 +143,17 @@ export const reducer = (state = initialState, action) => {
     case CREATE_ARTICLE:
       return {
         ...state,
-        
         accountLoaded: true,
         error: null,
       };
+    case EDIT_ARTICLE: 
+      return {
+        ...state,
+        accountLoaded: true,
+        error: null,
+        isEdit: true,
+      }
+    
 
     default:
       return state;
