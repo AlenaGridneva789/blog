@@ -17,7 +17,7 @@ const NotAuthButtons = () => {
     dispatch(logOut());
   };
   const onNewClick = () => {
-    
+    dispatch()
     navigate('/new-article')
   }
   return (
