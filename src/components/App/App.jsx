@@ -11,7 +11,7 @@ import SignIn from '../SignIn/SignIn';
 import EditProfile from '../EditProfile/EditProfile';
 import CreateArticle from '../CreateArticle/CreateArticle';
 
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import classes from './App.module.css';
 
 const App = () => {

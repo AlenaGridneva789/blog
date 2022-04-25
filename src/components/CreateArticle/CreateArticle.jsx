@@ -26,11 +26,11 @@ const CreateArticle = () => {
  
   const dispatch = useDispatch();
   const pathname = useLocation()
-  const title = JSON.parse(localStorage.getItem('fullarticle')).title
-  const body = JSON.parse(localStorage.getItem('fullarticle')).body
-  const description = JSON.parse(localStorage.getItem('fullarticle')).description
-  const slug = JSON.parse(localStorage.getItem('fullarticle')).slug
-  const tagList = JSON.parse(localStorage.getItem('fullarticle')).tagList
+  const title = JSON.parse(localStorage.getItem('fullarticle'))?.title
+  const body = JSON.parse(localStorage.getItem('fullarticle'))?.body
+  const description = JSON.parse(localStorage.getItem('fullarticle'))?.description
+  const slug = JSON.parse(localStorage.getItem('fullarticle'))?.slug
+  const tagList = JSON.parse(localStorage.getItem('fullarticle'))?.tagList
   const {
     handleSubmit,
     control,
@@ -54,7 +54,7 @@ const CreateArticle = () => {
   }); 
 
    useEffect(() => {
-    
+   
     if (!isAuth) {
       navigate('/sign-in');
     }

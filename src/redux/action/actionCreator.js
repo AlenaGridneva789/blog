@@ -1,4 +1,4 @@
-import { toLocalStorage } from '../../utils/localStorage';
+import { toLocalStorage, toLocalStorageArt } from '../../utils/localStorage';
 import { joinTags } from '../../utils/joinTags';
 import { isImage } from '../../utils/isImage';
 import {
@@ -49,7 +49,7 @@ export const getFullArticle =
       const json = await result.json();
 
       if (result.ok) {
-        localStorage.setItem('fullarticle', JSON.stringify(json.article))
+        toLocalStorageArt(json)
         dispatch({ type: GET_FULL_ARTICLE, payload: { ...json } });
       }
     } catch (error) {
